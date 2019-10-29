@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #232333;
+}
+
+nav.app-nav {
+  z-index: 10;
+  position: fixed;
+  display: flex;
+}
+
+nav.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  box-shadow: inset 0px -1px 0px #EDEDF4;
+  padding: 8px;
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  flex: 1;
+}
+nav.app-nav>form.form {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+nav.app-nav>form>* {
+  margin: 8px;
+}
+nav.app-nav>form>label {
+  display: inline-flex;
+  flex-direction: column;
+  color: #747487;
+  box-sizing: border-box;
+}
+nav.app-nav>form.form>label>span{
+    display: none;
+}
+nav.app-nav>form>label>input.form__input {
+    border: 1px solid #BABACC;
+    height: 32px;
+    border-radius: 10px;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 13px;
+    color: #232323;
+    padding: 0 12px;
+    width: 200px;
+    display: block;
+}
+nav.app-nav>form>label>input.form__input::placeholder{
+    color: #747487;
+}
+nav.app-nav>form>label>input.form__input:hover {
+    border: 1px solid #747487;
+}
+nav.app-nav>form>label>input.form__input:focus {
+    border: 1px solid #0E71EB;
+}
+nav.app-nav>form.form *:focus {
+    outline: 1px dotted rgba(0,0,0,0.2) !important;
+}
+
+.button {
+  border: 0;
+  outline: 0;
+  color: #ffffff;
+  background: #0e71eb;
+  padding: 7px 16px 8px;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 14px; 
+  line-height: 17px;
+  cursor: pointer;
+  margin: 8px;
+}
+.button:hover,
+.button:focus {
+  background: #2681F2;
+}
+.button:active {
+  background: #0C63CE;
+}
