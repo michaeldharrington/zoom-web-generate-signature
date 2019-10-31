@@ -3,6 +3,7 @@ require('dotenv/config')
 
 // import and run express server
 const express = require('express');
+const bodyParser = require("body-parser");
 
 // require js-base64 and crypto-js for signature
 const base64JS = require('js-base64')

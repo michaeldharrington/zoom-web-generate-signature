@@ -6,6 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      apiKey: "",
       meetingLaunched: false,
       meetingNumber: "",
       leaveUrl: "#",
@@ -31,6 +32,7 @@ class App extends Component {
   }
 
   launchMeeting() {
+    const apiKey = "veVac3ZTQ_-OrSGXQh3oPA";
     const meetConfig = {
       meetingNumber: this.state.meetingNumber,
       leaveUrl: this.state.leaveUrl,
@@ -40,12 +42,11 @@ class App extends Component {
       role: this.state.role
     };
     this.setState({ meetingLaunched: true });
-    this.getSignature(meetConfig, this.state.apiKey);
+    this.getSignature(meetConfig, apiKey);
   }
 
-  getSignature(meetConfig) {
-    const apiKey = "veVac3ZTQ_-OrSGXQh3oPA";
-    fetch("/getSignature", {
+  getSignature(meetConfig, apiKey) {
+    fetch("http://localhost:4000/getSignature", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ meetingData: meetConfig })
@@ -61,7 +62,7 @@ class App extends Component {
               apiKey: apiKey,
               meetingNumber: meetConfig.meetingNumber,
               userName: meetConfig.userName, //
-              userEmail: meetConfig.userEmail, // Required for Webinars
+              userEmail: meetConfig.userEmail, // Not used, required for Webinars
               passWord: meetConfig.passWord, // If required; set by host
               success() {
                 console.log("join meeting success");
