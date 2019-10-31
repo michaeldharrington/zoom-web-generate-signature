@@ -6,7 +6,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiKey: "veVac3ZTQ_-OrSGXQh3oPA",
       meetingLaunched: false,
       meetingNumber: "",
       leaveUrl: "#",
@@ -44,7 +43,8 @@ class App extends Component {
     this.getSignature(meetConfig, this.state.apiKey);
   }
 
-  getSignature(meetConfig, apiKey) {
+  getSignature(meetConfig) {
+    const apiKey = "veVac3ZTQ_-OrSGXQh3oPA";
     fetch("/getSignature", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
