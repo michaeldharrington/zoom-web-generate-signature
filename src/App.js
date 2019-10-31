@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
-import { ZoomMtg } from 'zoomus-jssdk'
-import './App.css'
+import React, { Component } from "react";
+import { ZoomMtg } from "zoomus-jssdk";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiKey: 'veVac3ZTQ_-OrSGXQh3oPA',
+      apiKey: "veVac3ZTQ_-OrSGXQh3oPA",
       meetingLaunched: false,
-      meetingNumber: '',
-      leaveUrl: '#',
-      userName: '',
-      userEmail: '',
-      passWord: '',
+      meetingNumber: "",
+      leaveUrl: "#",
+      userName: "",
+      userEmail: "",
+      passWord: "",
       role: 0
-    }
+    };
 
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.launchMeeting = this.launchMeeting.bind(this)
-    this.getSignature = this.getSignature.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.launchMeeting = this.launchMeeting.bind(this);
+    this.getSignature = this.getSignature.bind(this);
   }
-  
+
   componentDidMount() {
-    ZoomMtg.setZoomJSLib('https://source.zoom.us/1.6.0/lib', '/av')
+    ZoomMtg.setZoomJSLib("https://source.zoom.us/1.6.0/lib", "/av");
     ZoomMtg.preLoadWasm();
     ZoomMtg.prepareJssdk();
   }
 
-  handleInputChange(e) { 
-    this.setState({ [e.target.name]: e.target.value })
+  handleInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   launchMeeting() {
@@ -39,50 +39,50 @@ class App extends Component {
       userEmail: this.state.userEmail,
       passWord: this.state.passWord,
       role: this.state.role
-    }
-    this.setState({ meetingLaunched: true })
-    this.getSignature(meetConfig, this.state.apiKey)
+    };
+    this.setState({ meetingLaunched: true });
+    this.getSignature(meetConfig, this.state.apiKey);
   }
 
   getSignature(meetConfig, apiKey) {
-    fetch('http://localhost:4000/getSignature', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("/getSignature", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ meetingData: meetConfig })
     })
       .then(result => result.text())
       .then(response => {
         ZoomMtg.init({
           leaveUrl: meetConfig.leaveUrl,
-          isSupportAV: true, 
-          success: function () {
-          ZoomMtg.join({
-            signature: response, 
-            apiKey: apiKey,
-            meetingNumber: meetConfig.meetingNumber,
-            userName: meetConfig.userName, // 
-            userEmail: meetConfig.userEmail, // Required for Webinars
-            passWord: meetConfig.passWord, // If required; set by host
-            success() {
-              console.log('join meeting success');
-            },
-            error(res) {
-              console.log(res);
-            }
-          })
-        },
-        error(res) {
-          console.log(res); }
-        })
-      }
-    )
+          isSupportAV: true,
+          success: function() {
+            ZoomMtg.join({
+              signature: response,
+              apiKey: apiKey,
+              meetingNumber: meetConfig.meetingNumber,
+              userName: meetConfig.userName, //
+              userEmail: meetConfig.userEmail, // Required for Webinars
+              passWord: meetConfig.passWord, // If required; set by host
+              success() {
+                console.log("join meeting success");
+              },
+              error(res) {
+                console.log(res);
+              }
+            });
+          },
+          error(res) {
+            console.log(res);
+          }
+        });
+      });
   }
 
   render() {
-    const { meetingNumber, userName, passWord, meetingLaunched } = this.state
+    const { meetingNumber, userName, passWord, meetingLaunched } = this.state;
     return (
       <div className="App">
-        {!meetingLaunched ? 
+        {!meetingLaunched ? (
           <nav className="app-nav">
             <form className="form">
               <label>
@@ -125,9 +125,9 @@ class App extends Component {
               </button>
             </div>
           </nav>
-          :
+        ) : (
           <></>
-        }
+        )}
       </div>
     );
   }
