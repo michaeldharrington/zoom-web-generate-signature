@@ -60,8 +60,8 @@ class App extends Component {
             ZoomMtg.join({
               signature: response,
               apiKey: apiKey,
-              meetingNumber: meetConfig.meetingNumber,
-              userName: meetConfig.userName, //
+              meetingNumber: meetConfig.meetingNumber, // required
+              userName: meetConfig.userName, // required
               userEmail: meetConfig.userEmail, // Not used, required for Webinars
               passWord: meetConfig.passWord, // If required; set by host
               success() {
