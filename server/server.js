@@ -4,11 +4,6 @@ require('dotenv/config')
 // import and run express server
 const express = require('express');
 
-// require js-base64 and crypto-js for signature
-const base64JS = require('js-base64')
-const hmacSha256 = require('crypto-js/hmac-sha256')
-const encBase64 = require('crypto-js/enc-base64')
-
 const app = express();
 app.use(express.json());
 
@@ -18,10 +13,12 @@ app.use(cors());
 
 // create a function to create a base64 signature 
 function generateSignature(secrets, meetingData) {
-    const ts = new Date().getTime();
-    const msg = base64JS.Base64.encode(secrets.API_KEY + meetingData.meetingNumber + ts + meetingData.role);
-    const hash = hmacSha256(msg, secrets.API_SECRET);
-    return signature = base64JS.Base64.encodeURI(`${secrets.API_KEY}.${meetingData.meetingNumber}.${ts}.${meetingData.role}.${encBase64.stringify(hash)}`);
+    const timestamp = new Date().getTime()
+    const msg = Buffer.from(secrets.API_KEY + meetingData.meetingNumber + timestamp + meetingData.role).toString('base64')
+    const hash = crypto.createHmac('sha256', secrets.API_SECRET).update(msg).digest('base64')
+    const signature = Buffer.from(`${secrets.API_KEY}.${meetingData.meetingNumber}.${timestamp}.${meetingData.role}.${hash}`).toString('base64')
+
+    return signature
 }
 
 // setup endpoint to receive requests for signatures
